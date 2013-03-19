@@ -322,7 +322,7 @@ class GUI:
 		self.close = self.builder.get_object("close")
 		self.close.connect("clicked", self.quit)
 		
-		self.selection_box = self.builder.get_object("selection_box")
+		self.selection_box = self.builder.get_object("main")
 		
 		self.progress_box = self.builder.get_object("progress_box")
 		self.progress_text = self.builder.get_object("progress_text")
