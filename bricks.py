@@ -114,7 +114,7 @@ class Apply(threading.Thread):
 		
 		try:
 			# Get the status of each switch, then change cache accordingly
-			for feature, objs in self.parent.objects.items():
+			for feature, objs in self.parent._objects.items():
 				
 				status, packages, allpackages = engine.status(feature)
 				
@@ -214,82 +214,82 @@ class GUI:
 		
 		for feature in features_order:
 			dic = features[feature]
-			self.objects[feature] = {}
+			self._objects[feature] = {}
 			
 			# Generate high level HBox
-			self.objects[feature]["container"] = Gtk.HBox()
+			self._objects[feature]["container"] = Gtk.HBox()
 			
 			# Generate icon & text HBox
-			self.objects[feature]["icontextcontainer"] = Gtk.HBox()
-			self.objects[feature]["icontextcontainer"].set_spacing(5)
+			self._objects[feature]["icontextcontainer"] = Gtk.HBox()
+			self._objects[feature]["icontextcontainer"].set_spacing(5)
 			
 			# Generate text VBox
-			self.objects[feature]["textcontainer"] = Gtk.VBox()
-			self.objects[feature]["textcontainer"].set_spacing(3)
+			self._objects[feature]["textcontainer"] = Gtk.VBox()
+			self._objects[feature]["textcontainer"].set_spacing(3)
 			
 			# Generate switch
-			self.objects[feature]["switch"] = Gtk.Switch()
-			self.objects[feature]["switch"].set_halign(Gtk.Align.END)
-			self.objects[feature]["switch"].set_valign(Gtk.Align.CENTER)
+			self._objects[feature]["switch"] = Gtk.Switch()
+			self._objects[feature]["switch"].set_halign(Gtk.Align.END)
+			self._objects[feature]["switch"].set_valign(Gtk.Align.CENTER)
 			# Preset the switch
 			if engine.status(feature)[0]:
-				self.objects[feature]["switch"].set_active(True)
+				self._objects[feature]["switch"].set_active(True)
 			else:
-				self.objects[feature]["switch"].set_active(False)
+				self._objects[feature]["switch"].set_active(False)
 
 			# Generate icon
-			self.objects[feature]["icon"] = Gtk.Image()
-			self.objects[feature]["icon"].set_from_icon_name(
+			self._objects[feature]["icon"] = Gtk.Image()
+			self._objects[feature]["icon"].set_from_icon_name(
 				dic["icon"],
 				Gtk.IconSize.DIALOG)
 			
 			# Generate title
-			self.objects[feature]["title"] = Gtk.Label()
-			self.objects[feature]["title"].set_alignment(0.0,0.0)
-			self.objects[feature]["title"].set_markup(
+			self._objects[feature]["title"] = Gtk.Label()
+			self._objects[feature]["title"].set_alignment(0.0,0.0)
+			self._objects[feature]["title"].set_markup(
 				"<b>%s</b>" % dic["title"])
 			
 			# Generate subtext
 			if "subtext" in dic:
-				self.objects[feature]["subtext"] = Gtk.Label()
-				self.objects[feature]["subtext"].set_alignment(0.0,0.0)
-				self.objects[feature]["subtext"].set_markup(
+				self._objects[feature]["subtext"] = Gtk.Label()
+				self._objects[feature]["subtext"].set_alignment(0.0,0.0)
+				self._objects[feature]["subtext"].set_markup(
 					dic["subtext"])
-				self.objects[feature]["subtext"].set_line_wrap(True)
+				self._objects[feature]["subtext"].set_line_wrap(True)
 			
 			# Pack title and subtext
-			self.objects[feature]["textcontainer"].pack_start(
-				self.objects[feature]["title"],
+			self._objects[feature]["textcontainer"].pack_start(
+				self._objects[feature]["title"],
 				False,
 				False,
 				0)
 			if "subtext" in dic:
-				self.objects[feature]["textcontainer"].pack_start(
-					self.objects[feature]["subtext"],
+				self._objects[feature]["textcontainer"].pack_start(
+					self._objects[feature]["subtext"],
 					False,
 					False,
 					0)
 			
 			# Pack icon and textcontainer
-			self.objects[feature]["icontextcontainer"].pack_start(
-				self.objects[feature]["icon"],
+			self._objects[feature]["icontextcontainer"].pack_start(
+				self._objects[feature]["icon"],
 				False,
 				False,
 				0)
-			self.objects[feature]["icontextcontainer"].pack_start(
-				self.objects[feature]["textcontainer"],
+			self._objects[feature]["icontextcontainer"].pack_start(
+				self._objects[feature]["textcontainer"],
 				True,
 				True,
 				0)
 			
 			# Pack icontextcontainer and switch
-			self.objects[feature]["container"].pack_start(
-				self.objects[feature]["icontextcontainer"],
+			self._objects[feature]["container"].pack_start(
+				self._objects[feature]["icontextcontainer"],
 				True,
 				True,
 				0)
-			self.objects[feature]["container"].pack_start(
-				self.objects[feature]["switch"],
+			self._objects[feature]["container"].pack_start(
+				self._objects[feature]["switch"],
 				False,
 				False,
 				0)
@@ -297,7 +297,7 @@ class GUI:
 			
 			# Pack container into the main container
 			self.container.pack_start(
-				self.objects[feature]["container"],
+				self._objects[feature]["container"],
 				False,
 				False,
 				0)
@@ -310,7 +310,7 @@ class GUI:
 		self.current = 0.0
 		self.possible = 1 # Acquire and Install
 		
-		self.objects = {}
+		self._objects = {}
 		
 		self.builder = Gtk.Builder()
 		self.builder.add_from_file(GLADEFILE)
