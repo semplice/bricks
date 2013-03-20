@@ -1,0 +1,31 @@
+Source: bricks
+Section: admin
+Priority: optional
+Maintainer: Eugenio Paolantonio (g7) <me@medesimo.eu>
+Build-Depends: debhelper (>= 7), python-all, python-support
+X-Python-Version: >= 2.6
+Standards-Version: 3.9.4
+Homepage: http://github.com/semplice/bricks
+Vcs-Git: git://github.com/semplice/bricks.git
+Vcs-Browser: http://github.com/semplice/bricks
+
+Package: bricks
+Architecture: all
+Depends: ${python:Depends}, python-libbricks, python-t9n, python-gi, gir1.2-gtk-3.0, python-apt
+Description: Semplice features manager -- Main executables
+ bricks is a GTK+3 GUI tool, written in Python, that permits
+ to manage the "feature meta-packages" provided by Semplice
+ since Semplice 4.
+ .
+ This package contains the main bricks executable.
+
+Package: python-libbricks
+Architecture: all
+Depends: ${python:Depends}, python-apt, python-t9n
+Description: Semplice features manager -- Library
+ bricks is a GTK+3 GUI tool, written in Python, that permits
+ to manage the "feature meta-packages" provided by Semplice
+ since Semplice 4.
+ .
+ This package contains the public bricks library.
+

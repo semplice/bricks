@@ -1,0 +1,2 @@
+?package(bricks):needs="X11|text|vc|wm" section="System/Administration"\
+  title="Manage Semplice Features" command="pkexec /usr/bin/bricks"
