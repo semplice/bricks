@@ -14,7 +14,7 @@ setup(name='bricks',
 	# package_dir={'bin':''},
 	scripts=['bricks.py'],
 	packages=[
-		"bricks",
+		"libbricks",
       ],
 	data_files=[("/usr/share/bricks", ["bricks.glade"]),("/usr/share/applications", ["bricks.desktop"]),("/usr/share/polkit-1/actions/", ["org.semplice-linux.pkexec.bricks.policy"])],
 	requires=['gi.repository.Gtk', 'gi.repository.GObject', 't9n', 'threading', 'gettext', 'time', 'locale', 'apt', 'os', 'sys'],

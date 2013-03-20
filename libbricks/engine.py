@@ -20,7 +20,7 @@
 # This is the core library.
 #
 
-from bricks.features import features
+from libbricks.features import features
 
 import apt
 

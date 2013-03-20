@@ -30,9 +30,9 @@ import os, sys, threading, traceback
 
 import time
 
-import bricks.engine as engine
+import libbricks.engine as engine
 
-from bricks.features import features, features_order
+from libbricks.features import features, features_order
 
 _ = t9n.library.translation_init("bricks")
 
