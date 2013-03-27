@@ -9,10 +9,24 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+LOCALES_DIR = $(CURDIR)/debian/tmp/usr/share/locale
+
 %:
 	dh $@ --with python2
 
 override_dh_auto_install:
 	python setup.py install --root=debian/tmp --install-layout=deb
+
+	# Borrowed from clamtk source package, thank you all
+	@echo Installing locales now...
+	for locale in $(shell ls $(CURDIR)/lang/bricks/*.mo | sed 's@.*/\(.*\)\.mo@\1@g'); \
+		do mkdir -p $(LOCALES_DIR)/$$locale/LC_MESSAGES/ && \
+		install -m 644 $(CURDIR)/lang/bricks/$$locale.mo $(LOCALES_DIR)/$$locale/LC_MESSAGES/bricks.mo; \
+	done
+	-rm -rf $(LOCALES_DIR)/bricks/
+
 
 override_dh_auto_build:
