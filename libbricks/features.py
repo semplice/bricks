@@ -46,8 +46,8 @@ features = {
 	},
 	"composite": {
 		"icon":"preferences-system-windows",
-		"title":_("Window effects"),
-		"subtext":_("Window effects such as transparencies, shadows, etc."),
+		"title":_("Visual effects"),
+		"subtext":_("Visual effects such as transparencies, shadows, etc."),
 		"package-openbox":"meta-openbox-feature-composite",
 	},
 }
