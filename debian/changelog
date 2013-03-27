@@ -1,3 +1,10 @@
+bricks (1.0.1-1) unstable; urgency=low
+
+  * Added translations.
+  * debian/rules: ship translations.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Wed, 27 Mar 2013 20:31:25 +0100
+
 bricks (1.0.0-1) unstable; urgency=low
 
   * Initial release.
