@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#  <me@medesimo.eu>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: bricks\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-03-27 20:17+0100\n"
+"PO-Revision-Date: 2013-03-27 19:26+0000\n"
+"Last-Translator: g7 <me@medesimo.eu>\n"
+"Language-Team: Italian (http://www.transifex.com/projects/p/semplice/language/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: libbricks/features.py:29
+msgid "Bluetooth support"
+msgstr "Supporto bluetooth"
+
+#: libbricks/features.py:30
+msgid "Without bluetooth support you can't use bluetooth devices."
+msgstr "Senza il supporto bluetooth non è possibile usare i dispositivi bluetooth."
+
+#: libbricks/features.py:36
+msgid "Printing support"
+msgstr "Supporto stampanti"
+
+#: libbricks/features.py:37
+msgid "This includes printer drivers and manage tools."
+msgstr "Questo include i driver delle stampanti ed i tool di gestione."
+
+#: libbricks/features.py:43
+msgid "Office applications"
+msgstr "Applicazioni per l'ufficio"
+
+#: libbricks/features.py:44
+msgid "Word processors and spreadsheets."
+msgstr "Elaboratori di testo e fogli di calcolo."
+
+#: libbricks/features.py:49
+msgid "Visual effects"
+msgstr "Effetti visivi"
+
+#: libbricks/features.py:50
+msgid "Visual effects such as transparencies, shadows, etc."
+msgstr "Effetti visivi come trasparenze, ombre, ecc."
+
+#: bricks.py:152
+msgid "Press Close to exit from the application."
+msgstr "Premere Chiudi per uscire dall'applicazione."
+
+#: bricks.glade.h:1
+msgid "<big><b>An error occurred.</b></big>"
+msgstr "<big><b>È stato riscontrato un errore.</b></big>"
+
+#: bricks.glade.h:2
+msgid "Manage Semplice features"
+msgstr "Gestisci le funzionalità di Semplice"
+
+#: bricks.glade.h:3
+msgid "<b>Features</b>"
+msgstr "<b>Funzionalità</b>"
+
+#: bricks.glade.h:4
+msgid "<i>Please wait...</i>"
+msgstr "<i>Attendere prego...</i>"
