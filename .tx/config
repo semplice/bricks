@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[bricks.master]
+file_filter = lang/bricks/<lang>.po
+source_file = lang/bricks/bricks.pot
+source_lang = en
+type = PO
