@@ -24,7 +24,7 @@ from gi.repository import Gtk, GObject
 
 import apt.progress.base
 
-import t9n.library
+import locale, t9n.library
 
 import os, sys, threading, traceback
 
@@ -33,6 +33,9 @@ import time
 import libbricks.engine as engine
 
 from libbricks.features import features, features_order
+
+locale.setlocale(locale.LC_ALL, '')
+locale.bindtextdomain("bricks", "/usr/share/locale")
 
 _ = t9n.library.translation_init("bricks")
 
@@ -313,8 +316,8 @@ class GUI:
 		self._objects = {}
 		
 		self.builder = Gtk.Builder()
+		self.builder.set_translation_domain("bricks")
 		self.builder.add_from_file(GLADEFILE)
-		
 		
 		self.window = self.builder.get_object("window")
 		self.window.connect("destroy", lambda x: Gtk.main_quit())

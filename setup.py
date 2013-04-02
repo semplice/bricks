@@ -6,7 +6,7 @@
 from distutils.core import setup
 
 setup(name='bricks',
-	version='1.0.0',
+	version='1.0.2',
 	description='Manage semplice features',
 	author='Eugenio Paolantonio',
 	author_email='me@medesimo.eu',
