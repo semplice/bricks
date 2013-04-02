@@ -1,3 +1,9 @@
+bricks (1.0.2-1) unstable; urgency=low
+
+  * Set translation domain when processing the glade file.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 02 Apr 2013 11:37:06 +0200
+
 bricks (1.0.1-1) unstable; urgency=low
 
   * Added translations.
