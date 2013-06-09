@@ -49,6 +49,25 @@ def __dependencies_loop(deplist, pkg, onelevel=False):
 	
 	if onelevel: return onelevellist
 
+def dependencies_loop_simplified(pkg):
+	""" A simpler and faster way to do an onelevel dependency list. """
+	
+	lst = []
+	
+	if type(pkg) == str: pkg = cache[pkg]
+	
+	if pkg.installed:
+		version = pkg.installed
+	else:
+		version = pkg.versions[0]
+	
+	for depf in version.dependencies:
+		for dep in depf:
+			if dep.name in cache:
+				lst.append(cache[dep.name])
+	
+	return lst
+
 def remove(packages):
 	""" Marks the packages and its dependencies for removal. """
 	

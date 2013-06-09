@@ -45,6 +45,11 @@ GLADEFILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "bricks.gl
 os.environ["DEBIAN_FRONTEND"] = "gnome"
 os.environ["APT_LISTCHANGES_FRONTEND"] = "gtk"
 
+TYPE_DESCRIPTION = {
+	"package-base":"Core packages",
+	"package-openbox":"Graphical support tools"
+}
+
 class AcquireProgress(apt.progress.base.AcquireProgress):
 	""" Handles the Acquire step. """
 	
@@ -212,12 +217,60 @@ class GUI:
 		applyclass = Apply(self)
 		applyclass.start()
 	
+	def generate_advanced(self, vbox, dic):
+		""" Generates and adds proper checkbox for the advanced expander. """
+		
+		checkboxes = {}
+		
+		for typ in dic["enable_selection"]:
+			# Generate a frame that houses the type
+			frame = Gtk.Frame()
+			frame.set_shadow_type(Gtk.ShadowType.NONE)
+			label = Gtk.Label()
+			label.set_markup("<b>%s</b>" % TYPE_DESCRIPTION[typ])
+			frame.set_label_widget(label)
+			typ_vbox = Gtk.VBox()
+			alignment = Gtk.Alignment()
+			alignment.set_padding(0,0,12,0)
+			alignment.add(typ_vbox)
+			frame.add(alignment)
+			
+			# retrieve dependencies
+			dps = engine.dependencies_loop_simplified(dic[typ])
+			
+			checkboxes = {}
+			
+			for dep in dps:
+				if dep.name.startswith("meta-"): continue
+				if dep.installed:
+					version = dep.installed
+				else:
+					version = dep.versions[0]
+				checkboxes[dep.name] = Gtk.CheckButton(dep.name + " - " + version.summary)
+				checkboxes[dep.name].get_child().set_line_wrap(True)
+				if dep.installed:
+					checkboxes[dep.name].set_active(True)
+				typ_vbox.pack_start(
+					checkboxes[dep.name],
+					False,
+					False,
+					0)
+			
+			vbox.pack_start(
+				frame,
+				False,
+				False,
+				0)
+	
 	def build_feature_objects(self):
 		""" Builds GTK+ elements to list the features onto the GUI. """
 		
 		for feature in features_order:
 			dic = features[feature]
 			self._objects[feature] = {}
+			
+			# Generate high level VBox
+			self._objects[feature]["main_container"] = Gtk.VBox()
 			
 			# Generate high level HBox
 			self._objects[feature]["container"] = Gtk.HBox()
@@ -226,7 +279,7 @@ class GUI:
 			self._objects[feature]["icontextcontainer"] = Gtk.HBox()
 			self._objects[feature]["icontextcontainer"].set_spacing(5)
 			
-			# Generate text VBox
+			# Generate text VBox (advanced selection also hooked here)
 			self._objects[feature]["textcontainer"] = Gtk.VBox()
 			self._objects[feature]["textcontainer"].set_spacing(3)
 			
@@ -251,6 +304,13 @@ class GUI:
 			self._objects[feature]["title"].set_alignment(0.0,0.0)
 			self._objects[feature]["title"].set_markup(
 				"<b>%s</b>" % dic["title"])
+
+			# Add it
+			self._objects[feature]["textcontainer"].pack_start(
+				self._objects[feature]["title"],
+				False,
+				False,
+				0)
 			
 			# Generate subtext
 			if "subtext" in dic:
@@ -259,19 +319,13 @@ class GUI:
 				self._objects[feature]["subtext"].set_markup(
 					dic["subtext"])
 				self._objects[feature]["subtext"].set_line_wrap(True)
-			
-			# Pack title and subtext
-			self._objects[feature]["textcontainer"].pack_start(
-				self._objects[feature]["title"],
-				False,
-				False,
-				0)
-			if "subtext" in dic:
+
+				# Add it
 				self._objects[feature]["textcontainer"].pack_start(
 					self._objects[feature]["subtext"],
 					False,
 					False,
-					0)
+					0)	
 			
 			# Pack icon and textcontainer
 			self._objects[feature]["icontextcontainer"].pack_start(
@@ -297,10 +351,44 @@ class GUI:
 				False,
 				0)
 			
-			
-			# Pack container into the main container
-			self.container.pack_start(
+			# Pack normal container into the main VBox...
+			self._objects[feature]["main_container"].pack_start(
 				self._objects[feature]["container"],
+				False,
+				False,
+				0)
+
+			# Generate Expander to attach, if we should
+			if "enable_selection" in dic:
+				self._objects[feature]["expander"] = Gtk.Expander()
+				self._objects[feature]["expander"].set_label(
+					_("Advanced options"))
+							
+				self._objects[feature]["expander_vbox"] = Gtk.VBox()
+				self._objects[feature]["expander_align"] = Gtk.Alignment()
+				self._objects[feature]["expander_align"].set_padding(
+					0,0,12,0)
+				# Generate a list of checkboxes to add to the vbox..
+				self.generate_advanced(
+					self._objects[feature]["expander_vbox"],
+					dic)
+				
+				self._objects[feature]["expander_align"].add(
+					self._objects[feature]["expander_vbox"])
+				self._objects[feature]["expander"].add(
+					self._objects[feature]["expander_align"])
+
+
+				# Add it
+				self._objects[feature]["main_container"].pack_start(
+					self._objects[feature]["expander"],
+					False,
+					False,
+					0)		
+			
+			# Pack main_container into the main container
+			self.container.pack_start(
+				self._objects[feature]["main_container"],
 				False,
 				False,
 				0)
