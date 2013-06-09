@@ -50,8 +50,8 @@
     </action-widgets>
   </object>
   <object class="GtkWindow" id="window">
-    <property name="width_request">600</property>
-    <property name="height_request">500</property>
+    <property name="width_request">650</property>
+    <property name="height_request">400</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Manage Semplice features</property>
     <property name="resizable">False</property>
@@ -105,7 +105,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="orientation">vertical</property>
-                                    <property name="spacing">10</property>
+                                    <property name="spacing">15</property>
                                     <child>
                                       <placeholder/>
                                     </child>
@@ -190,8 +190,8 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkCheckButton" id="checkbutton2">
-                        <property name="label" translatable="yes">Enable advanced mode</property>
+                      <object class="GtkCheckButton" id="advanced_enabled">
+                        <property name="label" translatable="yes">Customize features</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>

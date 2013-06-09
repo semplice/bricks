@@ -360,10 +360,6 @@ class GUI:
 
 			# Generate Expander to attach, if we should
 			if "enable_selection" in dic:
-				self._objects[feature]["expander"] = Gtk.Expander()
-				self._objects[feature]["expander"].set_label(
-					_("Advanced options"))
-							
 				self._objects[feature]["expander_vbox"] = Gtk.VBox()
 				self._objects[feature]["expander_align"] = Gtk.Alignment()
 				self._objects[feature]["expander_align"].set_padding(
@@ -375,16 +371,14 @@ class GUI:
 				
 				self._objects[feature]["expander_align"].add(
 					self._objects[feature]["expander_vbox"])
-				self._objects[feature]["expander"].add(
-					self._objects[feature]["expander_align"])
 
 
 				# Add it
 				self._objects[feature]["main_container"].pack_start(
-					self._objects[feature]["expander"],
+					self._objects[feature]["expander_align"],
 					False,
 					False,
-					0)		
+					0)
 			
 			# Pack main_container into the main container
 			self.container.pack_start(
@@ -392,7 +386,19 @@ class GUI:
 				False,
 				False,
 				0)
-			
+	
+	def on_advanced_enabled_clicked(self, caller):
+		""" Called when the "Enable advanced mode" checkbutton has been
+			clicked. """
+		
+		value = caller.get_active()
+		
+		for feature in features_order:
+			if "expander_align" in self._objects[feature]:
+				if value:
+					self._objects[feature]["expander_align"].show()
+				else:
+					self._objects[feature]["expander_align"].hide()
 	
 	def __init__(self):
 		""" Initialize the GUI. """
@@ -412,6 +418,9 @@ class GUI:
 
 		self.close = self.builder.get_object("close")
 		self.close.connect("clicked", self.quit)
+		
+		self.advanced_enabled = self.builder.get_object("advanced_enabled")
+		self.advanced_enabled.connect("toggled", self.on_advanced_enabled_clicked)
 		
 		self.selection_box = self.builder.get_object("main")
 		
@@ -433,6 +442,7 @@ class GUI:
 	
 		self.window.show_all()
 		self.progress_box.hide()
+		self.on_advanced_enabled_clicked(self.advanced_enabled)
 
 
 if __name__ == "__main__":
