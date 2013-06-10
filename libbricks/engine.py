@@ -165,3 +165,8 @@ def get_variants():
 	""" Returns the Semplice variants. Hardcoded to openbox now. """
 	
 	return ("openbox",)
+
+def is_installed(pkg):
+	""" Returns True if the specified package is installed, False if not. """
+	
+	return cache[pkg].is_installed

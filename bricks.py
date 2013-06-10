@@ -125,21 +125,50 @@ class Apply(threading.Thread):
 			for feature, objs in self.parent._objects.items():
 				
 				status, packages, allpackages = engine.status(feature)
+				print packages, allpackages
 				
 				change = objs["switch"].get_active()
-				if change == status:
+				if change and change == status:
 					# We shouldn't touch this feature.
-					print "Skipping %s" % feature
 					continue
+				elif not change:
+					# We need to check every checkbox to see if we need
+					# to change something
+					toinstall = []
+					toremove = []
+					allfalse = True # should check if there is at least one True item
+					for dep, checkbox in self.parent.checkboxes[feature].items():
+						value = checkbox.get_active()
+						if value and not engine.is_installed(dep):
+							# Package needs to be installed.
+							toinstall.append(dep)
+							allfalse = False
+						elif value:
+							allfalse = False
+						elif not value and engine.is_installed(dep):
+							# Package is installed and needs removal
+							toremove.append(dep)
+					
+					if allfalse:
+						# Every checkbox is false, we can mark for removal
+						# the entire "packages"
+						atleastone = True
+						engine.remove(packages)
+					else:
+						print "MIXED THINGS"
+						print toinstall
+						print toremove
+						if toinstall:
+							atleastone = True
+							engine.install(toinstall)
+						if toremove:
+							atleastone = True
+							engine.remove(toremove)
 				else:
 					atleastone = True
-				
-				if change:
+					
 					# Should mark for installation!
 					engine.install(allpackages)
-				else:
-					# Should mark for removal!
-					engine.remove(packages)
 			
 			#self.parent.progress_set_quota(100)
 			#for lol in range(100):
@@ -287,10 +316,10 @@ class GUI:
 				else:
 					version = dep.versions[0]
 				self.checkboxes[feature][dep.name] = Gtk.CheckButton(dep.name + " - " + version.summary)
-				self.checkboxes[feature][dep.name].connect("toggled",self.on_advanced_checkutton_toggled, feature)
 				self.checkboxes[feature][dep.name].get_child().set_line_wrap(True)
 				if dep.installed:
 					self.checkboxes[feature][dep.name].set_active(True)
+				self.checkboxes[feature][dep.name].connect("toggled",self.on_advanced_checkutton_toggled, feature)
 				typ_vbox.pack_start(
 					self.checkboxes[feature][dep.name],
 					False,
@@ -329,6 +358,7 @@ class GUI:
 			self._objects[feature]["switch"].set_halign(Gtk.Align.END)
 			self._objects[feature]["switch"].set_valign(Gtk.Align.CENTER)
 			# Preset the switch
+			print "FEATURE %s STATUS: %s" % (feature, engine.status(feature)[0])
 			if engine.status(feature)[0]:
 				self._objects[feature]["switch"].set_active(True)
 			else:
