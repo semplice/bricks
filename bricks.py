@@ -210,6 +210,7 @@ class GUI:
 		# Set window parts insensitive
 		GObject.idle_add(self.selection_box.set_sensitive, False)
 		GObject.idle_add(self.close.set_sensitive, False)
+		GObject.idle_add(self.advanced_enabled.set_sensitive, False)
 		
 		# Show progress
 		GObject.idle_add(self.progress_box.show)
@@ -217,12 +218,52 @@ class GUI:
 		applyclass = Apply(self)
 		applyclass.start()
 	
-	def generate_advanced(self, vbox, dic):
+	def on_advanced_checkutton_toggled(self, caller, feature):
+		""" Called when one of the many checkbuttons of the 'advanced view'
+		has been toggled. """
+		
+		# Avoid looping if switchstate is already True (see later)
+		switchstate = self._objects[feature]["switch"].get_active()
+		
+		if not caller.get_active():
+			# Value is False, we can safely say that the feature will not be
+			# installed in full (we need to get the switch to OFF)
+			GObject.idle_add(self._objects[feature]["switch"].set_active, False)
+		elif not switchstate:
+			# We need to check every related checkbutton in order to assume
+			# if the new feature will be fully installed.
+			alltrue = True
+			for dependency, checkbutton in self.checkboxes[feature].items():
+				if not checkbutton.get_active():
+					alltrue = False
+			
+			if alltrue:
+				GObject.idle_add(self._objects[feature]["switch"].set_active, True)
+	
+	def on_switch_pressed(self, caller, other, feature):
+		""" Called when one of the switches has been pressed. """
+
+		status = caller.get_active()
+
+		if not status:
+			for dependency, checkbutton in self.checkboxes[feature].items():
+				if not checkbutton.get_active():
+					# We hoped to use only one loop, but it doesn't seem
+					# possible unfortunately
+					return
+		
+		for dependency, checkbutton in self.checkboxes[feature].items():
+			GObject.idle_add(checkbutton.set_active, status)
+			
+	def generate_advanced(self, vbox, feature):
 		""" Generates and adds proper checkbox for the advanced expander. """
 		
-		checkboxes = {}
+		self.checkboxes[feature] = {}
+		
+		dic = features[feature]
 		
 		for typ in dic["enable_selection"]:
+			
 			# Generate a frame that houses the type
 			frame = Gtk.Frame()
 			frame.set_shadow_type(Gtk.ShadowType.NONE)
@@ -238,20 +279,20 @@ class GUI:
 			# retrieve dependencies
 			dps = engine.dependencies_loop_simplified(dic[typ])
 			
-			checkboxes = {}
-			
 			for dep in dps:
-				if dep.name.startswith("meta-"): continue
+				if dep.name.startswith("meta-") or dep.name in self.checkboxes[feature]:
+					continue
 				if dep.installed:
 					version = dep.installed
 				else:
 					version = dep.versions[0]
-				checkboxes[dep.name] = Gtk.CheckButton(dep.name + " - " + version.summary)
-				checkboxes[dep.name].get_child().set_line_wrap(True)
+				self.checkboxes[feature][dep.name] = Gtk.CheckButton(dep.name + " - " + version.summary)
+				self.checkboxes[feature][dep.name].connect("toggled",self.on_advanced_checkutton_toggled, feature)
+				self.checkboxes[feature][dep.name].get_child().set_line_wrap(True)
 				if dep.installed:
-					checkboxes[dep.name].set_active(True)
+					self.checkboxes[feature][dep.name].set_active(True)
 				typ_vbox.pack_start(
-					checkboxes[dep.name],
+					self.checkboxes[feature][dep.name],
 					False,
 					False,
 					0)
@@ -292,6 +333,10 @@ class GUI:
 				self._objects[feature]["switch"].set_active(True)
 			else:
 				self._objects[feature]["switch"].set_active(False)
+			self._objects[feature]["switch"].connect(
+				"notify::active",
+				self.on_switch_pressed,
+				feature)
 
 			# Generate icon
 			self._objects[feature]["icon"] = Gtk.Image()
@@ -367,7 +412,7 @@ class GUI:
 				# Generate a list of checkboxes to add to the vbox..
 				self.generate_advanced(
 					self._objects[feature]["expander_vbox"],
-					dic)
+					feature)
 				
 				self._objects[feature]["expander_align"].add(
 					self._objects[feature]["expander_vbox"])
@@ -408,6 +453,7 @@ class GUI:
 		self.possible = 1 # Acquire and Install
 		
 		self._objects = {}
+		self.checkboxes = {}
 		
 		self.builder = Gtk.Builder()
 		self.builder.set_translation_domain("bricks")
