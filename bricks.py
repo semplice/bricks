@@ -231,7 +231,7 @@ class GUI:
 			frame.set_label_widget(label)
 			typ_vbox = Gtk.VBox()
 			alignment = Gtk.Alignment()
-			alignment.set_padding(0,0,12,0)
+			alignment.set_padding(2,2,12,0)
 			alignment.add(typ_vbox)
 			frame.add(alignment)
 			
@@ -363,7 +363,7 @@ class GUI:
 				self._objects[feature]["expander_vbox"] = Gtk.VBox()
 				self._objects[feature]["expander_align"] = Gtk.Alignment()
 				self._objects[feature]["expander_align"].set_padding(
-					0,0,12,0)
+					5,5,12,0)
 				# Generate a list of checkboxes to add to the vbox..
 				self.generate_advanced(
 					self._objects[feature]["expander_vbox"],
