@@ -54,6 +54,13 @@ features = {
 		"package-openbox":"meta-openbox-feature-composite",
 		"enable_selection":("package-openbox",)
 	},
+	"nonfree": {
+		"icon":"system-software-install",
+		"title":_("Proprietary packages"),
+		"subtext":_("Proprietary packages such as firmwares, the Adobe® Flash Player plugin and more."),
+		"package-base":"meta-nonfree",
+		"enable_selection":("package-base",)
+	}
 }
 
-features_order = ("bluetooth","printing","office","composite")
+features_order = ("bluetooth","printing","office","composite","nonfree")
