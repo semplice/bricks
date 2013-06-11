@@ -68,7 +68,7 @@ def dependencies_loop_simplified(pkg):
 	
 	return lst
 
-def remove(packages):
+def remove(packages, auto=True):
 	""" Marks the packages and its dependencies for removal. """
 	
 	print packages
@@ -94,20 +94,21 @@ def remove(packages):
 		
 		# Also ensure we remove AT LEAST the first level of dependencies
 		# (that is, the actual package's dependencies).
-		markedauto = []
-		for pkg in onelevel:
-			if pkg.is_installed and not pkg.is_auto_installed:
-				pkg.mark_auto()
-				markedauto.append(pkg)
-		
-		for pkg in deplist:
-			if pkg.is_installed and pkg.is_auto_removable:
-				print("Marking %s for deletion..." % pkg)
-				pkg.mark_delete()
-		
-		# Restore auted items
-		for pkg in markedauto:
-			if not pkg.marked_delete: pkg.mark_auto(False)
+		if auto:
+			markedauto = []
+			for pkg in onelevel:
+				if not pkg.marked_install and pkg.is_installed and not pkg.is_auto_installed:
+					pkg.mark_auto()
+					markedauto.append(pkg)
+			
+			for pkg in deplist:
+				if not pkg.marked_install and pkg.is_installed and pkg.is_auto_removable:
+					print("Marking %s for deletion..." % pkg)
+					pkg.mark_delete()
+			
+			# Restore auted items
+			for pkg in markedauto:
+				if not pkg.marked_delete: pkg.mark_auto(False)
 
 def install(packages):
 	""" Marks the packages for installation. """

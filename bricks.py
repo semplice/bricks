@@ -163,7 +163,7 @@ class Apply(threading.Thread):
 							engine.install(toinstall)
 						if toremove:
 							atleastone = True
-							engine.remove(toremove)
+							engine.remove(toremove, auto=False)
 				else:
 					atleastone = True
 					
