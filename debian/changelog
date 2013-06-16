@@ -1,3 +1,11 @@
+bricks (1.70.0-1) devel; urgency=low
+
+  * pkexec policy: properly declare the italian message translation.
+  * Support for feature customization
+  * Added non-free support.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 16 Jun 2013 19:04:05 +0200
+
 bricks (1.0.2-1) unstable; urgency=low
 
   * Set translation domain when processing the glade file.
