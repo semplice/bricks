@@ -30,6 +30,7 @@ features = {
 		"subtext":_("Without bluetooth support you can't use bluetooth devices."),
 		"package-base":"meta-base-feature-bluetooth",
 		"package-openbox":"meta-openbox-feature-bluetooth",
+		"enable_selection":("package-base","package-openbox")
 	},
 	"printing": {
 		"icon":"printer",
@@ -37,19 +38,29 @@ features = {
 		"subtext":_("This includes printer drivers and manage tools."),
 		"package-base":"meta-base-feature-printing",
 		"package-openbox":"meta-openbox-feature-printing",
+		"enable_selection":("package-base","package-openbox")
 	},
 	"office": {
 		"icon":"applications-office",
 		"title":_("Office applications"),
 		"subtext":_("Word processors and spreadsheets."),
 		"package-openbox":"meta-openbox-feature-office",
+		"enable_selection":("package-openbox",)
 	},
 	"composite": {
 		"icon":"preferences-system-windows",
 		"title":_("Visual effects"),
 		"subtext":_("Visual effects such as transparencies, shadows, etc."),
 		"package-openbox":"meta-openbox-feature-composite",
+		"enable_selection":("package-openbox",)
 	},
+	"nonfree": {
+		"icon":"system-software-install",
+		"title":_("Proprietary packages"),
+		"subtext":_("Proprietary packages such as firmwares, the Adobe® Flash Player plugin and more."),
+		"package-base":"meta-nonfree",
+		"enable_selection":("package-base",)
+	}
 }
 
-features_order = ("bluetooth","printing","office","composite")
+features_order = ("bluetooth","printing","office","composite","nonfree")

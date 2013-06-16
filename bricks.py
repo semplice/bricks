@@ -45,6 +45,11 @@ GLADEFILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "bricks.gl
 os.environ["DEBIAN_FRONTEND"] = "gnome"
 os.environ["APT_LISTCHANGES_FRONTEND"] = "gtk"
 
+TYPE_DESCRIPTION = {
+	"package-base":"Core packages",
+	"package-openbox":"Graphical support tools"
+}
+
 class AcquireProgress(apt.progress.base.AcquireProgress):
 	""" Handles the Acquire step. """
 	
@@ -120,21 +125,50 @@ class Apply(threading.Thread):
 			for feature, objs in self.parent._objects.items():
 				
 				status, packages, allpackages = engine.status(feature)
+				print packages, allpackages
 				
 				change = objs["switch"].get_active()
-				if change == status:
+				if change and change == status:
 					# We shouldn't touch this feature.
-					print "Skipping %s" % feature
 					continue
+				elif not change:
+					# We need to check every checkbox to see if we need
+					# to change something
+					toinstall = []
+					toremove = []
+					allfalse = True # should check if there is at least one True item
+					for dep, checkbox in self.parent.checkboxes[feature].items():
+						value = checkbox.get_active()
+						if value and not engine.is_installed(dep):
+							# Package needs to be installed.
+							toinstall.append(dep)
+							allfalse = False
+						elif value:
+							allfalse = False
+						elif not value and engine.is_installed(dep):
+							# Package is installed and needs removal
+							toremove.append(dep)
+					
+					if allfalse:
+						# Every checkbox is false, we can mark for removal
+						# the entire "packages"
+						atleastone = True
+						engine.remove(packages)
+					else:
+						print "MIXED THINGS"
+						print toinstall
+						print toremove
+						if toinstall:
+							atleastone = True
+							engine.install(toinstall)
+						if toremove:
+							atleastone = True
+							engine.remove(toremove, auto=False)
 				else:
 					atleastone = True
-				
-				if change:
+					
 					# Should mark for installation!
 					engine.install(allpackages)
-				else:
-					# Should mark for removal!
-					engine.remove(packages)
 			
 			#self.parent.progress_set_quota(100)
 			#for lol in range(100):
@@ -205,12 +239,98 @@ class GUI:
 		# Set window parts insensitive
 		GObject.idle_add(self.selection_box.set_sensitive, False)
 		GObject.idle_add(self.close.set_sensitive, False)
+		GObject.idle_add(self.advanced_enabled.set_sensitive, False)
 		
 		# Show progress
 		GObject.idle_add(self.progress_box.show)
 		
 		applyclass = Apply(self)
 		applyclass.start()
+	
+	def on_advanced_checkutton_toggled(self, caller, feature):
+		""" Called when one of the many checkbuttons of the 'advanced view'
+		has been toggled. """
+		
+		# Avoid looping if switchstate is already True (see later)
+		switchstate = self._objects[feature]["switch"].get_active()
+		
+		if not caller.get_active():
+			# Value is False, we can safely say that the feature will not be
+			# installed in full (we need to get the switch to OFF)
+			GObject.idle_add(self._objects[feature]["switch"].set_active, False)
+		elif not switchstate:
+			# We need to check every related checkbutton in order to assume
+			# if the new feature will be fully installed.
+			alltrue = True
+			for dependency, checkbutton in self.checkboxes[feature].items():
+				if not checkbutton.get_active():
+					alltrue = False
+			
+			if alltrue:
+				GObject.idle_add(self._objects[feature]["switch"].set_active, True)
+	
+	def on_switch_pressed(self, caller, other, feature):
+		""" Called when one of the switches has been pressed. """
+
+		status = caller.get_active()
+
+		if not status:
+			for dependency, checkbutton in self.checkboxes[feature].items():
+				if not checkbutton.get_active():
+					# We hoped to use only one loop, but it doesn't seem
+					# possible unfortunately
+					return
+		
+		for dependency, checkbutton in self.checkboxes[feature].items():
+			GObject.idle_add(checkbutton.set_active, status)
+			
+	def generate_advanced(self, vbox, feature):
+		""" Generates and adds proper checkbox for the advanced expander. """
+		
+		self.checkboxes[feature] = {}
+		
+		dic = features[feature]
+		
+		for typ in dic["enable_selection"]:
+			
+			# Generate a frame that houses the type
+			frame = Gtk.Frame()
+			frame.set_shadow_type(Gtk.ShadowType.NONE)
+			label = Gtk.Label()
+			label.set_markup("<b>%s</b>" % TYPE_DESCRIPTION[typ])
+			frame.set_label_widget(label)
+			typ_vbox = Gtk.VBox()
+			alignment = Gtk.Alignment()
+			alignment.set_padding(2,2,12,0)
+			alignment.add(typ_vbox)
+			frame.add(alignment)
+			
+			# retrieve dependencies
+			dps = engine.dependencies_loop_simplified(dic[typ])
+			
+			for dep in dps:
+				if dep.name.startswith("meta-") or dep.name in self.checkboxes[feature]:
+					continue
+				if dep.installed:
+					version = dep.installed
+				else:
+					version = dep.versions[0]
+				self.checkboxes[feature][dep.name] = Gtk.CheckButton(dep.name + " - " + version.summary)
+				self.checkboxes[feature][dep.name].get_child().set_line_wrap(True)
+				if dep.installed:
+					self.checkboxes[feature][dep.name].set_active(True)
+				self.checkboxes[feature][dep.name].connect("toggled",self.on_advanced_checkutton_toggled, feature)
+				typ_vbox.pack_start(
+					self.checkboxes[feature][dep.name],
+					False,
+					False,
+					0)
+			
+			vbox.pack_start(
+				frame,
+				False,
+				False,
+				0)
 	
 	def build_feature_objects(self):
 		""" Builds GTK+ elements to list the features onto the GUI. """
@@ -219,6 +339,9 @@ class GUI:
 			dic = features[feature]
 			self._objects[feature] = {}
 			
+			# Generate high level VBox
+			self._objects[feature]["main_container"] = Gtk.VBox()
+			
 			# Generate high level HBox
 			self._objects[feature]["container"] = Gtk.HBox()
 			
@@ -226,7 +349,7 @@ class GUI:
 			self._objects[feature]["icontextcontainer"] = Gtk.HBox()
 			self._objects[feature]["icontextcontainer"].set_spacing(5)
 			
-			# Generate text VBox
+			# Generate text VBox (advanced selection also hooked here)
 			self._objects[feature]["textcontainer"] = Gtk.VBox()
 			self._objects[feature]["textcontainer"].set_spacing(3)
 			
@@ -235,10 +358,15 @@ class GUI:
 			self._objects[feature]["switch"].set_halign(Gtk.Align.END)
 			self._objects[feature]["switch"].set_valign(Gtk.Align.CENTER)
 			# Preset the switch
+			print "FEATURE %s STATUS: %s" % (feature, engine.status(feature)[0])
 			if engine.status(feature)[0]:
 				self._objects[feature]["switch"].set_active(True)
 			else:
 				self._objects[feature]["switch"].set_active(False)
+			self._objects[feature]["switch"].connect(
+				"notify::active",
+				self.on_switch_pressed,
+				feature)
 
 			# Generate icon
 			self._objects[feature]["icon"] = Gtk.Image()
@@ -251,6 +379,13 @@ class GUI:
 			self._objects[feature]["title"].set_alignment(0.0,0.0)
 			self._objects[feature]["title"].set_markup(
 				"<b>%s</b>" % dic["title"])
+
+			# Add it
+			self._objects[feature]["textcontainer"].pack_start(
+				self._objects[feature]["title"],
+				False,
+				False,
+				0)
 			
 			# Generate subtext
 			if "subtext" in dic:
@@ -259,19 +394,13 @@ class GUI:
 				self._objects[feature]["subtext"].set_markup(
 					dic["subtext"])
 				self._objects[feature]["subtext"].set_line_wrap(True)
-			
-			# Pack title and subtext
-			self._objects[feature]["textcontainer"].pack_start(
-				self._objects[feature]["title"],
-				False,
-				False,
-				0)
-			if "subtext" in dic:
+
+				# Add it
 				self._objects[feature]["textcontainer"].pack_start(
 					self._objects[feature]["subtext"],
 					False,
 					False,
-					0)
+					0)	
 			
 			# Pack icon and textcontainer
 			self._objects[feature]["icontextcontainer"].pack_start(
@@ -297,14 +426,54 @@ class GUI:
 				False,
 				0)
 			
-			
-			# Pack container into the main container
-			self.container.pack_start(
+			# Pack normal container into the main VBox...
+			self._objects[feature]["main_container"].pack_start(
 				self._objects[feature]["container"],
 				False,
 				False,
 				0)
+
+			# Generate Expander to attach, if we should
+			if "enable_selection" in dic:
+				self._objects[feature]["expander_vbox"] = Gtk.VBox()
+				self._objects[feature]["expander_align"] = Gtk.Alignment()
+				self._objects[feature]["expander_align"].set_padding(
+					5,5,12,0)
+				# Generate a list of checkboxes to add to the vbox..
+				self.generate_advanced(
+					self._objects[feature]["expander_vbox"],
+					feature)
+				
+				self._objects[feature]["expander_align"].add(
+					self._objects[feature]["expander_vbox"])
+
+
+				# Add it
+				self._objects[feature]["main_container"].pack_start(
+					self._objects[feature]["expander_align"],
+					False,
+					False,
+					0)
 			
+			# Pack main_container into the main container
+			self.container.pack_start(
+				self._objects[feature]["main_container"],
+				False,
+				False,
+				0)
+	
+	def on_advanced_enabled_clicked(self, caller):
+		""" Called when the "Enable advanced mode" checkbutton has been
+			clicked. """
+		
+		value = caller.get_active()
+		
+		for feature in features_order:
+			if "expander_align" in self._objects[feature]:
+				if value:
+					self._objects[feature]["expander_align"].show()
+				else:
+					self._objects[feature]["expander_align"].hide()
 	
 	def __init__(self):
 		""" Initialize the GUI. """
@@ -314,6 +483,7 @@ class GUI:
 		self.possible = 1 # Acquire and Install
 		
 		self._objects = {}
+		self.checkboxes = {}
 		
 		self.builder = Gtk.Builder()
 		self.builder.set_translation_domain("bricks")
@@ -324,6 +494,9 @@ class GUI:
 
 		self.close = self.builder.get_object("close")
 		self.close.connect("clicked", self.quit)
+		
+		self.advanced_enabled = self.builder.get_object("advanced_enabled")
+		self.advanced_enabled.connect("toggled", self.on_advanced_enabled_clicked)
 		
 		self.selection_box = self.builder.get_object("main")
 		
@@ -345,6 +518,7 @@ class GUI:
 	
 		self.window.show_all()
 		self.progress_box.hide()
+		self.on_advanced_enabled_clicked(self.advanced_enabled)
 
 
 if __name__ == "__main__":
