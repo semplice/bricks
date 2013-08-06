@@ -154,16 +154,15 @@ class Apply(threading.Thread):
 						# the entire "packages"
 						atleastone = True
 						engine.remove(packages)
-					else:
-						print "MIXED THINGS"
-						print toinstall
-						print toremove
-						if toinstall:
-							atleastone = True
-							engine.install(toinstall)
-						if toremove:
-							atleastone = True
-							engine.remove(toremove, auto=False)
+
+					print "Packages to install:", toinstall
+					print "Packages to remove:", toremove
+					if toinstall:
+						atleastone = True
+						engine.install(toinstall)
+					if toremove:
+						atleastone = True
+						engine.remove(toremove, auto=False)
 				else:
 					atleastone = True
 					
