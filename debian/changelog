@@ -1,3 +1,9 @@
+bricks (1.91.1-1) devel; urgency=low
+
+  * Bugfix.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 17 Aug 2013 19:23:49 +0200
+
 bricks (1.91.0-1) devel; urgency=low
 
   * Added oneslip feature.
