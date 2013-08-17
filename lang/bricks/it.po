@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#  <me@medesimo.eu>, 2013.
+# g7 <me@medesimo.eu>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: bricks\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-27 20:17+0100\n"
-"PO-Revision-Date: 2013-03-27 19:26+0000\n"
+"POT-Creation-Date: 2013-08-17 18:46+0200\n"
+"PO-Revision-Date: 2013-08-17 16:49+0000\n"
 "Last-Translator: g7 <me@medesimo.eu>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/semplice/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -26,31 +26,49 @@ msgstr "Supporto bluetooth"
 msgid "Without bluetooth support you can't use bluetooth devices."
 msgstr "Senza il supporto bluetooth non è possibile usare i dispositivi bluetooth."
 
-#: libbricks/features.py:36
+#: libbricks/features.py:37
 msgid "Printing support"
 msgstr "Supporto stampanti"
 
-#: libbricks/features.py:37
+#: libbricks/features.py:38
 msgid "This includes printer drivers and manage tools."
 msgstr "Questo include i driver delle stampanti ed i tool di gestione."
 
-#: libbricks/features.py:43
+#: libbricks/features.py:45
 msgid "Office applications"
 msgstr "Applicazioni per l'ufficio"
 
-#: libbricks/features.py:44
+#: libbricks/features.py:46
 msgid "Word processors and spreadsheets."
 msgstr "Elaboratori di testo e fogli di calcolo."
 
-#: libbricks/features.py:49
+#: libbricks/features.py:52
 msgid "Visual effects"
 msgstr "Effetti visivi"
 
-#: libbricks/features.py:50
+#: libbricks/features.py:53
 msgid "Visual effects such as transparencies, shadows, etc."
 msgstr "Effetti visivi come trasparenze, ombre, ecc."
 
-#: bricks.py:152
+#: libbricks/features.py:59
+msgid "Web applications support"
+msgstr "Supporto applicazioni web"
+
+#: libbricks/features.py:60
+msgid "Support for web applications such as YouTube, Twitter and Facebook."
+msgstr "Supporto per le applicazioni web come YouTube, Twitter e Facebook."
+
+#: libbricks/features.py:66
+msgid "Proprietary packages"
+msgstr "Pacchetti proprietari"
+
+#: libbricks/features.py:67
+msgid ""
+"Proprietary packages such as firmwares, the Adobe® Flash Player plugin and "
+"more."
+msgstr "Pacchetti proprietari come firmware, il plugin Adobe® Flash Player e altro."
+
+#: bricks.py:188
 msgid "Press Close to exit from the application."
 msgstr "Premere Chiudi per uscire dall'applicazione."
 
@@ -69,3 +87,7 @@ msgstr "<b>Funzionalità</b>"
 #: bricks.glade.h:4
 msgid "<i>Please wait...</i>"
 msgstr "<i>Attendere prego...</i>"
+
+#: bricks.glade.h:5
+msgid "Customize features"
+msgstr "Personalizza le funzionalità"

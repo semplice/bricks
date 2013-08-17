@@ -54,6 +54,13 @@ features = {
 		"package-openbox":"meta-openbox-feature-composite",
 		"enable_selection":("package-openbox",)
 	},
+	"oneslip": {
+		"icon":"applications-internet",
+		"title":_("Web applications support"),
+		"subtext":_("Support for web applications such as YouTube, Twitter and Facebook."),
+		"package-openbox":"meta-openbox-feature-oneslip",
+		"enable-selection":("package-openbox",)
+	},
 	"nonfree": {
 		"icon":"system-software-install",
 		"title":_("Proprietary packages"),
@@ -63,4 +70,4 @@ features = {
 	}
 }
 
-features_order = ("bluetooth","printing","office","composite","nonfree")
+features_order = ("bluetooth","printing","office","composite","oneslip","nonfree")
