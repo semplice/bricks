@@ -59,7 +59,7 @@ features = {
 		"title":_("Web applications support"),
 		"subtext":_("Support for web applications such as YouTube, Twitter and Facebook."),
 		"package-openbox":"meta-openbox-feature-oneslip",
-		"enable-selection":("package-openbox",)
+		"enable_selection":("package-openbox",)
 	},
 	"nonfree": {
 		"icon":"system-software-install",
