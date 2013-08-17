@@ -1,3 +1,9 @@
+bricks (1.91.0-1) devel; urgency=low
+
+  * Added oneslip feature.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sat, 17 Aug 2013 18:50:39 +0200
+
 bricks (1.90.0-1) devel; urgency=low
 
   * Ensure we mark for deletion the entire contents of
