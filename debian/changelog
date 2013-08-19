@@ -1,3 +1,10 @@
+bricks (1.95.0-1) devel; urgency=low
+
+  * bricks can now prompt the user to install a missing feature.
+  * Updated translations.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Mon, 19 Aug 2013 21:17:42 +0200
+
 bricks (1.91.1-1) devel; urgency=low
 
   * Bugfix.
