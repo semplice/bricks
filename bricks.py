@@ -20,7 +20,7 @@
 # This is the main executable.
 #
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, Gdk, GObject
 
 import apt.progress.base
 
@@ -46,8 +46,8 @@ os.environ["DEBIAN_FRONTEND"] = "gnome"
 os.environ["APT_LISTCHANGES_FRONTEND"] = "gtk"
 
 TYPE_DESCRIPTION = {
-	"package-base":"Core packages",
-	"package-openbox":"Graphical support tools"
+	"package-base":_("Core packages"),
+	"package-openbox":_("Graphical support tools")
 }
 
 class AcquireProgress(apt.progress.base.AcquireProgress):
@@ -474,7 +474,16 @@ class GUI:
 				else:
 					self._objects[feature]["expander_align"].hide()
 	
-	def __init__(self):
+	def enable_feature(self, obj, feature):
+		""" Enables the feature 'feature' """
+		
+		GObject.idle_add(self._objects[feature]["switch"].set_active, True)
+		GObject.idle_add(self.error_box.modify_bg, Gtk.StateType.NORMAL, Gdk.color_parse("#729fcf"))
+		GObject.idle_add(self.error_image.set_from_icon_name, "gtk-dialog-info", Gtk.IconSize(6))
+		GObject.idle_add(self.error_label.set_markup, _("Press the <i>Close</i> button to apply the changes."))
+		GObject.idle_add(self.error_enable.hide)
+	
+	def __init__(self, ERROR_APP, ERROR_FEATURE):
 		""" Initialize the GUI. """
 		
 		self.quota = None
@@ -493,6 +502,12 @@ class GUI:
 
 		self.close = self.builder.get_object("close")
 		self.close.connect("clicked", self.quit)
+		
+		self.error_box = self.builder.get_object("error_box")
+		self.error_box.modify_bg(Gtk.StateType.NORMAL, Gdk.color_parse("#F07568"))
+		self.error_image = self.builder.get_object("error_image")
+		self.error_label = self.builder.get_object("error_label")
+		self.error_enable = self.builder.get_object("error_enable")
 		
 		self.advanced_enabled = self.builder.get_object("advanced_enabled")
 		self.advanced_enabled.connect("toggled", self.on_advanced_enabled_clicked)
@@ -513,15 +528,44 @@ class GUI:
 		self.container = self.builder.get_object("features_container")
 		
 		self.build_feature_objects()
-		
 	
 		self.window.show_all()
 		self.progress_box.hide()
 		self.on_advanced_enabled_clicked(self.advanced_enabled)
 
+		if not ERROR_APP:
+			self.error_box.hide()
+		else:
+			self.error_label.set_markup(
+				_("<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled." %
+					(ERROR_APP, features[ERROR_FEATURE]["title"])
+				)
+			)
+		
+			# Connect Enable button
+			self.error_enable.connect("clicked", self.enable_feature, ERROR_FEATURE)
+
 
 if __name__ == "__main__":
-	g = GUI()
+	
+	# Parse arguments
+	ERROR_APP = None
+	ERROR_FEATURE = None
+	if len(sys.argv) > 1:
+		if sys.argv[1] in ("-h","--help"):
+			print(_("USAGE: bricks <ERROR_APP> <ERROR_FEATURE>"))
+			print(_("This application doesn't require any argument."))
+			print(_("ERROR_APP and ERROR_FEATURE are internally used."))
+			sys.exit(0)
+		else:
+			ERROR_APP = sys.argv[1]
+			if len(sys.argv) == 2:
+				print(_("ERROR: ERROR_APP requires also an ERROR_FEATURE."))
+				sys.exit(1)
+			else:
+				ERROR_FEATURE = sys.argv[2]
+	
+	g = GUI(ERROR_APP, ERROR_FEATURE)
 	GObject.threads_init()
 	Gtk.main()
 	#GObject.threads_leave()
