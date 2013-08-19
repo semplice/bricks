@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-17 18:46+0200\n"
+"POT-Creation-Date: 2013-08-19 20:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: libbricks/features.py:29
@@ -63,12 +63,45 @@ msgstr ""
 
 #: libbricks/features.py:67
 msgid ""
-"Proprietary packages such as firmwares, the Adobe® Flash Player plugin and "
+"Proprietary packages such as firmwares, the Adobe(R) Flash Player plugin and "
 "more."
+msgstr ""
+
+#: bricks.py:49
+msgid "Core packages"
+msgstr ""
+
+#: bricks.py:50
+msgid "Graphical support tools"
 msgstr ""
 
 #: bricks.py:188
 msgid "Press Close to exit from the application."
+msgstr ""
+
+#: bricks.py:483
+msgid "Press the <i>Close</i> button to apply the changes."
+msgstr ""
+
+#: bricks.py:540
+#, python-format
+msgid "<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled."
+msgstr ""
+
+#: bricks.py:556
+msgid "USAGE: bricks <ERROR_APP> <ERROR_FEATURE>"
+msgstr ""
+
+#: bricks.py:557
+msgid "This application doesn't require any argument."
+msgstr ""
+
+#: bricks.py:558
+msgid "ERROR_APP and ERROR_FEATURE are internally used."
+msgstr ""
+
+#: bricks.py:563
+msgid "ERROR: ERROR_APP requires also an ERROR_FEATURE."
 msgstr ""
 
 #: bricks.glade.h:1
@@ -80,13 +113,21 @@ msgid "Manage Semplice features"
 msgstr ""
 
 #: bricks.glade.h:3
-msgid "<b>Features</b>"
+msgid "label"
 msgstr ""
 
 #: bricks.glade.h:4
-msgid "<i>Please wait...</i>"
+msgid "Enable"
 msgstr ""
 
 #: bricks.glade.h:5
+msgid "<b>Features</b>"
+msgstr ""
+
+#: bricks.glade.h:6
+msgid "<i>Please wait...</i>"
+msgstr ""
+
+#: bricks.glade.h:7
 msgid "Customize features"
 msgstr ""

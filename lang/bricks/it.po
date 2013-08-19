@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bricks\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-17 18:46+0200\n"
-"PO-Revision-Date: 2013-08-17 16:49+0000\n"
+"POT-Creation-Date: 2013-08-19 20:43+0200\n"
+"PO-Revision-Date: 2013-08-19 19:16+0000\n"
 "Last-Translator: g7 <me@medesimo.eu>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/semplice/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -64,13 +64,46 @@ msgstr "Pacchetti proprietari"
 
 #: libbricks/features.py:67
 msgid ""
-"Proprietary packages such as firmwares, the Adobe® Flash Player plugin and "
-"more."
-msgstr "Pacchetti proprietari come firmware, il plugin Adobe® Flash Player e altro."
+"Proprietary packages such as firmwares, the Adobe(R) Flash Player plugin and"
+" more."
+msgstr "Pacchetti proprietari come firmware, il plugin Adobe(R) Flash Player e altro."
+
+#: bricks.py:49
+msgid "Core packages"
+msgstr "Pacchetti principali"
+
+#: bricks.py:50
+msgid "Graphical support tools"
+msgstr "Pacchetti di supporto grafico"
 
 #: bricks.py:188
 msgid "Press Close to exit from the application."
 msgstr "Premere Chiudi per uscire dall'applicazione."
+
+#: bricks.py:483
+msgid "Press the <i>Close</i> button to apply the changes."
+msgstr "Premere il pulsante <i>Chiudi</i> per applicare i cambiamenti."
+
+#: bricks.py:540
+#, python-format
+msgid "<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled."
+msgstr "<b>%s</b> richiede \"<i>%s</i>\", che è disabilitato."
+
+#: bricks.py:556
+msgid "USAGE: bricks <ERROR_APP> <ERROR_FEATURE>"
+msgstr "USO: bricks <ERROR_APP> <ERROR_FEATURE>"
+
+#: bricks.py:557
+msgid "This application doesn't require any argument."
+msgstr "Quest'applicazione non richiede alcun argomento."
+
+#: bricks.py:558
+msgid "ERROR_APP and ERROR_FEATURE are internally used."
+msgstr "ERROR_APP e ERROR_FEATURE sono usati internamente."
+
+#: bricks.py:563
+msgid "ERROR: ERROR_APP requires also an ERROR_FEATURE."
+msgstr "ERRORE: ERROR_APP richiede anche ERROR_FEATURE."
 
 #: bricks.glade.h:1
 msgid "<big><b>An error occurred.</b></big>"
@@ -81,13 +114,21 @@ msgid "Manage Semplice features"
 msgstr "Gestisci le funzionalità di Semplice"
 
 #: bricks.glade.h:3
+msgid "label"
+msgstr "stringa"
+
+#: bricks.glade.h:4
+msgid "Enable"
+msgstr "Abilita"
+
+#: bricks.glade.h:5
 msgid "<b>Features</b>"
 msgstr "<b>Funzionalità</b>"
 
-#: bricks.glade.h:4
+#: bricks.glade.h:6
 msgid "<i>Please wait...</i>"
 msgstr "<i>Attendere prego...</i>"
 
-#: bricks.glade.h:5
+#: bricks.glade.h:7
 msgid "Customize features"
 msgstr "Personalizza le funzionalità"
