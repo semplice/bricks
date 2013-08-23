@@ -537,9 +537,8 @@ class GUI:
 			self.error_box.hide()
 		else:
 			self.error_label.set_markup(
-				_("<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled." %
+				_("<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled.") %
 					(ERROR_APP, features[ERROR_FEATURE]["title"])
-				)
 			)
 		
 			# Connect Enable button
@@ -547,6 +546,8 @@ class GUI:
 
 
 if __name__ == "__main__":
+	import signal
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
 	
 	# Parse arguments
 	ERROR_APP = None
