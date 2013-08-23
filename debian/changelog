@@ -1,3 +1,12 @@
+bricks (2.0.0-1) unstable; urgency=low
+
+  * Catch KeyboardInterrups.
+  * Fixed translations in error_label.
+  * We are 2.0.0 now.
+  * Restored master-worthy gbp configuration.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 23 Aug 2013 19:22:15 +0200
+
 bricks (1.95.0-1) devel; urgency=low
 
   * bricks can now prompt the user to install a missing feature.
