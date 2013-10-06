@@ -154,6 +154,26 @@ class Apply(threading.Thread):
 						# the entire "packages"
 						atleastone = True
 						engine.remove(packages)
+					else:
+						# the user customized the feature.
+						# We need to be sure that the meta package is
+						# being processed as well.
+						
+						# First, we need to loop through the customizable
+						# metapackages
+						for meta in features[feature]["enable_selection"]:
+							meta = features[feature][meta]
+							
+							# Now that we got the package name, we need to
+							# get its dependencies...
+							deps = engine.dependencies_loop_simplified(meta, asString=True)
+							
+							# ...and see if one of ours is there
+							for pkg in toremove:
+								if pkg in deps:
+									# Yeah! Just add meta to toremove
+									toremove.append(meta)
+									break
 
 					print "Packages to install:", toinstall
 					print "Packages to remove:", toremove
