@@ -1,3 +1,10 @@
+bricks (2.0.1-1) unstable; urgency=low
+
+  * When applying removal on customized features' packages,
+    ensure we set meta-package's dependencies as user installed.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Sun, 06 Oct 2013 20:26:11 +0200
+
 bricks (2.0.0-1) unstable; urgency=low
 
   * Catch KeyboardInterrups.
