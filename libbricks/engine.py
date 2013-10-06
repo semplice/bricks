@@ -49,8 +49,11 @@ def __dependencies_loop(deplist, pkg, onelevel=False):
 	
 	if onelevel: return onelevellist
 
-def dependencies_loop_simplified(pkg):
-	""" A simpler and faster way to do an onelevel dependency list. """
+def dependencies_loop_simplified(pkg, asString=False):
+	""" A simpler and faster way to do an onelevel dependency list.
+	
+	If asString is True, the list will contain only the package names,
+	not the apt.package objects (as it does by default) """
 	
 	lst = []
 	
@@ -64,7 +67,10 @@ def dependencies_loop_simplified(pkg):
 	for depf in version.dependencies:
 		for dep in depf:
 			if dep.name in cache:
-				lst.append(cache[dep.name])
+				if not asString:
+					lst.append(cache[dep.name])
+				else:
+					lst.append(dep.name)
 	
 	return lst
 
@@ -87,7 +93,8 @@ def remove(packages, auto=True):
 		#    - via is_auto_installed we check if we can safely remove it
 		
 		deplist = []
-		onelevel = __dependencies_loop(deplist, package, onelevel=True)
+		#onelevel = __dependencies_loop(deplist, package, onelevel=True)
+		onelevel = dependencies_loop_simplified(package)
 				
 		# Mark for deletion the first package, to fire up auto_removable
 		package.mark_delete()
@@ -109,6 +116,13 @@ def remove(packages, auto=True):
 			# Restore auted items
 			for pkg in markedauto:
 				if not pkg.marked_delete: pkg.mark_auto(False)
+		else:
+			# We need to ensure that the onelevel packages are not marked
+			# as automatically installed, otherwise the user may drop
+			# them via autoremove or aptitude.
+			for pkg in onelevel:
+				if pkg.is_installed and pkg.is_auto_installed:
+					pkg.mark_auto(auto=False)
 
 def install(packages):
 	""" Marks the packages for installation. """
