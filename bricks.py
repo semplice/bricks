@@ -209,7 +209,8 @@ class Apply(threading.Thread):
 			print(error)
 			GObject.idle_add(
 				self.parent.error_window.format_secondary_markup,
-				_("Press Close to exit from the application.") + "\n\n<i>" + error + "</i>")
+#				_("Press Close to exit from the application.") + "\n\n<i>" + error + "</i>")
+				"<i>%s</i>\n\n" % excp[1] + _("Press Close to exit from the application."))
 			GObject.idle_add(self.parent.error_window.show)
 		else:
 			self.parent.really_quit()
