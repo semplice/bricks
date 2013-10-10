@@ -30,6 +30,7 @@ features = {
 		"subtext":_("Without bluetooth support you can't use bluetooth devices."),
 		"package-base":"meta-base-feature-bluetooth",
 		"package-openbox":"meta-openbox-feature-bluetooth",
+		"purge":("bluez",),
 		"enable_selection":("package-base","package-openbox")
 	},
 	"printing": {
@@ -38,6 +39,7 @@ features = {
 		"subtext":_("This includes printer drivers and manage tools."),
 		"package-base":"meta-base-feature-printing",
 		"package-openbox":"meta-openbox-feature-printing",
+		"purge":("cups-daemon",),
 		"enable_selection":("package-base","package-openbox")
 	},
 	"office": {
