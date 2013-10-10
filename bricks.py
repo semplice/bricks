@@ -125,7 +125,11 @@ class Apply(threading.Thread):
 			for feature, objs in self.parent._objects.items():
 				
 				status, packages, allpackages = engine.status(feature)
-				print packages, allpackages
+				
+				# Get things to purge, if any
+				to_purge = ()
+				if "purge" in features[feature]:
+					to_purge = features[feature]["purge"]
 				
 				change = objs["switch"].get_active()
 				if change and change == status:
@@ -153,7 +157,7 @@ class Apply(threading.Thread):
 						# Every checkbox is false, we can mark for removal
 						# the entire "packages"
 						atleastone = True
-						engine.remove(packages)
+						engine.remove(packages, purge=to_purge)
 					else:
 						# the user customized the feature.
 						# We need to be sure that the meta package is
@@ -182,7 +186,7 @@ class Apply(threading.Thread):
 						engine.install(toinstall)
 					if toremove:
 						atleastone = True
-						engine.remove(toremove, auto=False)
+						engine.remove(toremove, auto=False, purge=to_purge)
 				else:
 					atleastone = True
 					
@@ -205,7 +209,8 @@ class Apply(threading.Thread):
 			print(error)
 			GObject.idle_add(
 				self.parent.error_window.format_secondary_markup,
-				_("Press Close to exit from the application.") + "\n\n<i>" + error + "</i>")
+#				_("Press Close to exit from the application.") + "\n\n<i>" + error + "</i>")
+				"<i>%s</i>\n\n" % excp[1] + _("Press Close to exit from the application."))
 			GObject.idle_add(self.parent.error_window.show)
 		else:
 			self.parent.really_quit()
