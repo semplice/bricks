@@ -1,3 +1,12 @@
+bricks (2.0.2-1) unstable; urgency=low
+
+  * Implemented purge support for a list of packages per feature
+    defined in features.py
+  * If an exception occours, show only the error and not the
+    entire traceback in the dialog.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Thu, 10 Oct 2013 17:49:35 +0200
+
 bricks (2.0.1-1) unstable; urgency=low
 
   * When applying removal on customized features' packages,
