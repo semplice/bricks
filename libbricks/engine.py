@@ -93,8 +93,8 @@ def remove(packages, auto=True, purge=()):
 		#    - via is_auto_installed we check if we can safely remove it
 		
 		deplist = []
-		#onelevel = __dependencies_loop(deplist, package, onelevel=True)
-		onelevel = dependencies_loop_simplified(package)
+		onelevel = __dependencies_loop(deplist, package, onelevel=True)
+		#onelevel = dependencies_loop_simplified(package)
 				
 		# Mark for deletion the first package, to fire up auto_removable
 		
@@ -108,12 +108,11 @@ def remove(packages, auto=True, purge=()):
 		# (that is, the actual package's dependencies).
 		if auto:
 			markedauto = []
-			for pkg in onelevel:
+			for pkg in deplist:
 				if not pkg.marked_install and pkg.is_installed and not pkg.is_auto_installed:
 					pkg.mark_auto()
 					markedauto.append(pkg)
 			
-			for pkg in deplist:
 				if not pkg.marked_install and pkg.is_installed and pkg.is_auto_removable:
 					print("Marking %s for deletion..." % pkg)
 					# Purge?
