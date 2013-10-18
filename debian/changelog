@@ -1,3 +1,9 @@
+bricks (2.0.4-1) unstable; urgency=low
+
+  * Partially revert d955f1a0a8bb0a1a1624d93f5a0229f4188671c0.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Fri, 18 Oct 2013 11:58:20 +0200
+
 bricks (2.0.3-1) unstable; urgency=low
 
   * engine: loop through deplist with the auto-hack to get every bit
