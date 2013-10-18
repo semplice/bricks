@@ -108,11 +108,12 @@ def remove(packages, auto=True, purge=()):
 		# (that is, the actual package's dependencies).
 		if auto:
 			markedauto = []
-			for pkg in deplist:
+			for pkg in onelevel:
 				if not pkg.marked_install and pkg.is_installed and not pkg.is_auto_installed:
 					pkg.mark_auto()
 					markedauto.append(pkg)
 			
+			for pkg in deplist:
 				if not pkg.marked_install and pkg.is_installed and pkg.is_auto_removable:
 					print("Marking %s for deletion..." % pkg)
 					# Purge?
