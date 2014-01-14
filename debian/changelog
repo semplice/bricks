@@ -1,3 +1,10 @@
+bricks (3.0.0-1) unstable; urgency=low
+
+  * Added ugly code to show the window ASAP and then calculate the features in the background.
+  * Changed composite icon to 'desktop-effects'.
+
+ -- Eugenio Paolantonio (g7) <me@medesimo.eu>  Tue, 14 Jan 2014 18:46:53 +0100
+
 bricks (2.0.4-1) unstable; urgency=low
 
   * Partially revert d955f1a0a8bb0a1a1624d93f5a0229f4188671c0.
