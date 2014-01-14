@@ -215,6 +215,23 @@ class Apply(threading.Thread):
 		else:
 			self.parent.really_quit()
 
+class GUI_BUILD(threading.Thread):
+	""" Somewhat ugly workaround to make GTK+ building the feature widgets
+	in the background. """
+	
+	def __init__(self, parent):
+		""" Initialize the class """
+		
+		threading.Thread.__init__(self)
+		
+		self.parent = parent
+	
+	def run(self):
+		""" Actually do things! """
+		
+		self.parent.build_feature_objects()
+		self.parent.on_advanced_enabled_clicked(self.parent.advanced_enabled)
+
 class GUI:
 	def progress_set_text(self, text):
 		""" Sets the text of the progress label """
@@ -480,11 +497,18 @@ class GUI:
 					0)
 			
 			# Pack main_container into the main container
-			self.container.pack_start(
+			GObject.idle_add(self.container.pack_start,
 				self._objects[feature]["main_container"],
 				False,
 				False,
 				0)
+		
+		# Show the box
+		GObject.idle_add(self.waiting.hide)
+		GObject.idle_add(self.selection_box.show_all)
+
+		GObject.idle_add(self.close.set_sensitive, True)
+		GObject.idle_add(self.advanced_enabled.set_sensitive, True)
 	
 	def on_advanced_enabled_clicked(self, caller):
 		""" Called when the "Enable advanced mode" checkbutton has been
@@ -495,9 +519,9 @@ class GUI:
 		for feature in features_order:
 			if "expander_align" in self._objects[feature]:
 				if value:
-					self._objects[feature]["expander_align"].show()
+					GObject.idle_add(self._objects[feature]["expander_align"].show)
 				else:
-					self._objects[feature]["expander_align"].hide()
+					GObject.idle_add(self._objects[feature]["expander_align"].hide)
 	
 	def enable_feature(self, obj, feature):
 		""" Enables the feature 'feature' """
@@ -537,6 +561,7 @@ class GUI:
 		self.advanced_enabled = self.builder.get_object("advanced_enabled")
 		self.advanced_enabled.connect("toggled", self.on_advanced_enabled_clicked)
 		
+		self.waiting = self.builder.get_object("waiting")
 		self.selection_box = self.builder.get_object("main")
 		
 		self.progress_box = self.builder.get_object("progress_box")
@@ -552,11 +577,12 @@ class GUI:
 		
 		self.container = self.builder.get_object("features_container")
 		
-		self.build_feature_objects()
-	
 		self.window.show_all()
 		self.progress_box.hide()
-		self.on_advanced_enabled_clicked(self.advanced_enabled)
+		self.selection_box.hide()
+		
+		self.close.set_sensitive(False)
+		self.advanced_enabled.set_sensitive(False)
 
 		if not ERROR_APP:
 			self.error_box.hide()
@@ -569,6 +595,8 @@ class GUI:
 			# Connect Enable button
 			self.error_enable.connect("clicked", self.enable_feature, ERROR_FEATURE)
 
+		gb = GUI_BUILD(self)
+		GObject.idle_add(gb.start)
 
 if __name__ == "__main__":
 	import signal

@@ -50,7 +50,7 @@ features = {
 		"enable_selection":("package-openbox",)
 	},
 	"composite": {
-		"icon":"preferences-system-windows",
+		"icon":"desktop-effects",
 		"title":_("Visual effects"),
 		"subtext":_("Visual effects such as transparencies, shadows, etc."),
 		"package-openbox":"meta-openbox-feature-composite",

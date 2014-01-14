@@ -22,15 +22,24 @@
 
 from libbricks.features import features
 
-import apt
+cache = None
 
-# Obtain cache content
-cache = apt.Cache()
+def get_cache():
+	""" Gets the apt cache. """
+	
+	global cache
+	
+	import apt
+
+	# Obtain cache content
+	cache = apt.Cache()
 
 def __dependencies_loop(deplist, pkg, onelevel=False):
 	""" Loops through pkg's dependencies.
 	
 	Returns a list with every package found. """
+	
+	if not cache: get_cache()
 	
 	if onelevel: onelevellist = []
 	
@@ -54,7 +63,9 @@ def dependencies_loop_simplified(pkg, asString=False):
 	
 	If asString is True, the list will contain only the package names,
 	not the apt.package objects (as it does by default) """
-	
+
+	if not cache: get_cache()
+
 	lst = []
 	
 	if type(pkg) == str: pkg = cache[pkg]
@@ -77,7 +88,7 @@ def dependencies_loop_simplified(pkg, asString=False):
 def remove(packages, auto=True, purge=()):
 	""" Marks the packages and its dependencies for removal. """
 	
-	print packages
+	if not cache: get_cache()
 	
 	for package in packages:
 		
@@ -135,7 +146,9 @@ def remove(packages, auto=True, purge=()):
 
 def install(packages):
 	""" Marks the packages for installation. """
-	
+
+	if not cache: get_cache()
+
 	for package in packages:
 		
 		package = cache[package]
@@ -148,7 +161,9 @@ def status(feature):
 	- A list of packages installed.
 	- A list of all packages of the feature.
 	"""
-	 
+
+	if not cache: get_cache()
+
 	status = None
 	packages = []
 	allpackages = []
@@ -192,5 +207,7 @@ def get_variants():
 
 def is_installed(pkg):
 	""" Returns True if the specified package is installed, False if not. """
+
+	if not cache: get_cache()
 	
 	return cache[pkg].is_installed
