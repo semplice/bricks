@@ -56,6 +56,14 @@ features = {
 		"package-openbox":"meta-openbox-feature-composite",
 		"enable_selection":("package-openbox",)
 	},
+	"pulseaudio": {
+		"icon":"preferences-system-sound",
+		"title":_("Advanced audio support"),
+		"subtext":_("Advanced audio support (PulseAudio)."),
+		"package-base":"meta-base-feature-pulseaudio",
+		"package-openbox":"meta-openbox-feature-pulseaudio",
+		"enable_selection":("package-base","package-openbox")
+	},
 	"oneslip": {
 		"icon":"applications-internet",
 		"title":_("Web applications support"),
@@ -72,4 +80,4 @@ features = {
 	}
 }
 
-features_order = ("bluetooth","printing","office","composite","oneslip","nonfree")
+features_order = ("bluetooth","printing","office","composite","pulseaudio","oneslip","nonfree")
