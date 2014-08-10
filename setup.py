@@ -6,7 +6,7 @@
 from distutils.core import setup
 
 setup(name='bricks',
-	version='3.0.0',
+	version='3.20.0',
 	description='Manage Semplice features',
 	author='Eugenio Paolantonio',
 	author_email='me@medesimo.eu',
@@ -16,6 +16,6 @@ setup(name='bricks',
 	packages=[
 		"libbricks",
       ],
-	data_files=[("/usr/share/bricks", ["bricks.glade"]),("/usr/share/applications", ["bricks.desktop"]),("/usr/share/polkit-1/actions/", ["org.semplice-linux.pkexec.bricks.policy"])],
+	data_files=[("/usr/share/bricks", ["bricks.glade"]),("/usr/share/vera-control-center/modules/bricks", ["bricks.desktop"]),("/usr/share/polkit-1/actions/", ["org.semplice-linux.pkexec.bricks.policy"])],
 	requires=['gi.repository.Gtk', 'gi.repository.GObject', 't9n', 'threading', 'gettext', 'time', 'locale', 'apt', 'os', 'sys'],
 )
