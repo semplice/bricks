@@ -1,10 +1,10 @@
-
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
 Type=Application
-Name=Manage Semplice features
-Name[it_IT]=Gestisci le funzionalità di Semplice
+Name=Features
+Name[it_IT]=Funzionalità
 Categories=System;Settings;
 Exec=pkexec /usr/bin/bricks
 Icon=preferences-desktop-default-applications
+X-VeraCC-Section=System
