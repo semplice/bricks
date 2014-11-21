@@ -80,4 +80,4 @@ features = {
 	}
 }
 
-features_order = ("bluetooth","printing","office","composite","pulseaudio","oneslip","nonfree")
+features_order = ("bluetooth","printing","office","composite","pulseaudio","nonfree")
