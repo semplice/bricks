@@ -1,53 +1,54 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# Heimen Stoffels <vistausss@outlook.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: bricks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-04 20:33+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2015-04-04 18:33+0000\n"
+"Last-Translator: g7 <me@medesimo.eu>\n"
+"Language-Team: Dutch (Netherlands) (http://www.transifex.com/projects/p/bricks/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libbricks/features.py:29
 msgid "Bluetooth support"
-msgstr ""
+msgstr "Bluetooth-ondersteuning"
 
 #: libbricks/features.py:30
 msgid "Without bluetooth support you can't use bluetooth devices."
-msgstr ""
+msgstr "Zonder bluetooth-ondersteuning kunt u geen bluetooth-apparaten gebruiken."
 
 #: libbricks/features.py:38
 msgid "Printing support"
-msgstr ""
+msgstr "Printerondersteuning"
 
 #: libbricks/features.py:39
 msgid "This includes printer drivers and manage tools."
-msgstr ""
+msgstr "Dit bevat printerstuurprogramma's en beheerhulpmiddelen."
 
 #: libbricks/features.py:47
 msgid "Office applications"
-msgstr ""
+msgstr "Kantoortoepassingen"
 
 #: libbricks/features.py:48
 msgid "Word processors and spreadsheets."
-msgstr ""
+msgstr "Word-verwerkers en werkbladen."
 
 #: libbricks/features.py:54
 msgid "Visual effects"
-msgstr ""
+msgstr "Visuele effecten"
 
 #: libbricks/features.py:55
 msgid "Visual effects such as transparencies, shadows, etc."
-msgstr ""
+msgstr "Visuele effecten zoals doorzichtigheid, schaduwen, etc."
 
 #: libbricks/features.py:61
 msgid "Advanced audio support"
@@ -59,83 +60,83 @@ msgstr ""
 
 #: libbricks/features.py:69
 msgid "Web applications support"
-msgstr ""
+msgstr "Ondersteuning voor webapplicaties"
 
 #: libbricks/features.py:70
 msgid "Support for web applications such as YouTube, Twitter and Facebook."
-msgstr ""
+msgstr "Ondersteuning voor webapplicaties zoals YouTube, Twitter en Facebook."
 
 #: libbricks/features.py:76
 msgid "Proprietary packages"
-msgstr ""
+msgstr "Propriëtaire pakketten"
 
 #: libbricks/features.py:77
 msgid ""
-"Proprietary packages such as firmwares, the Adobe(R) Flash Player plugin and "
-"more."
-msgstr ""
+"Proprietary packages such as firmwares, the Adobe(R) Flash Player plugin and"
+" more."
+msgstr "Propriëtaire pakketten zoals firmware, de Adobe(R) Flash Speler-plugin en meer."
 
 #: bricks.py:49
 msgid "Core packages"
-msgstr ""
+msgstr "Essentiële pakketten"
 
 #: bricks.py:50
 msgid "Graphical support tools"
-msgstr ""
+msgstr "Grafische ondersteuningshulpmiddelen"
 
 #: bricks.py:213
 msgid "Press Close to exit from the application."
-msgstr ""
+msgstr "Klik op Sluiten om de applicatie af te sluiten."
 
 #: bricks.py:532
 msgid "Press the <i>Close</i> button to apply the changes."
-msgstr ""
+msgstr "Klik op de <i>Sluiten</i>-knop om de wijzigingen toe te passen."
 
 #: bricks.py:591
 #, python-format
 msgid "<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled."
-msgstr ""
+msgstr "<b>%s</b> vereist \"<i>%s</i>\" welke momenteel niet is ingeschakeld."
 
 #: bricks.py:610
 msgid "USAGE: bricks <ERROR_APP> <ERROR_FEATURE>"
-msgstr ""
+msgstr "GEBRUIK: bricks <ERROR_APP> <ERROR_FEATURE>"
 
 #: bricks.py:611
 msgid "This application doesn't require any argument."
-msgstr ""
+msgstr "Deze applicatie vereist geen argumenten."
 
 #: bricks.py:612
 msgid "ERROR_APP and ERROR_FEATURE are internally used."
-msgstr ""
+msgstr "ERROR_APP en ERROR_FEATURE worden intern gebruikt."
 
 #: bricks.py:617
 msgid "ERROR: ERROR_APP requires also an ERROR_FEATURE."
-msgstr ""
+msgstr "FOUT: ERROR_APP vereist ERROR_FEATURE."
 
 #: bricks.glade.h:1
 msgid "<big><b>An error occurred.</b></big>"
-msgstr ""
+msgstr "<big><b>Er is een fout opgetreden.</b></big>"
 
 #: bricks.glade.h:2
 msgid "Manage Semplice features"
-msgstr ""
+msgstr "Semplice-mogelijkheden beheren"
 
 #: bricks.glade.h:3
 msgid "label"
-msgstr ""
+msgstr "label"
 
 #: bricks.glade.h:4
 msgid "Enable"
-msgstr ""
+msgstr "Inschakelen"
 
 #: bricks.glade.h:5
 msgid "<b>Features</b>"
-msgstr ""
+msgstr "<b>Mogelijkheden</b>"
 
 #: bricks.glade.h:6
 msgid "<i>Please wait...</i>"
-msgstr ""
+msgstr "<b>Even wachten...</b>"
 
 #: bricks.glade.h:7
 msgid "Customize features"
-msgstr ""
+msgstr "Mogelijkheden aanpassen"

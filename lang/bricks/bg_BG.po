@@ -3,140 +3,140 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# g7 <me@medesimo.eu>, 2013,2015
+# Tony Ivanov <antonivanov8@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: bricks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-04 20:33+0200\n"
-"PO-Revision-Date: 2015-04-04 18:35+0000\n"
+"PO-Revision-Date: 2015-04-04 18:33+0000\n"
 "Last-Translator: g7 <me@medesimo.eu>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/bricks/language/it/)\n"
+"Language-Team: Bulgarian (Bulgaria) (http://www.transifex.com/projects/p/bricks/language/bg_BG/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
+"Language: bg_BG\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: libbricks/features.py:29
 msgid "Bluetooth support"
-msgstr "Supporto bluetooth"
+msgstr "Блутут поддръжка"
 
 #: libbricks/features.py:30
 msgid "Without bluetooth support you can't use bluetooth devices."
-msgstr "Senza il supporto bluetooth non è possibile usare i dispositivi bluetooth."
+msgstr "Без блутут поддръжка не можете да използвате блутут устройства"
 
 #: libbricks/features.py:38
 msgid "Printing support"
-msgstr "Supporto stampanti"
+msgstr "Поддръжка принтиране"
 
 #: libbricks/features.py:39
 msgid "This includes printer drivers and manage tools."
-msgstr "Questo include i driver delle stampanti ed i tool di gestione."
+msgstr "Това включва принтер драйвъри и инструменти за управление."
 
 #: libbricks/features.py:47
 msgid "Office applications"
-msgstr "Applicazioni per l'ufficio"
+msgstr "Офис приложения"
 
 #: libbricks/features.py:48
 msgid "Word processors and spreadsheets."
-msgstr "Elaboratori di testo e fogli di calcolo."
+msgstr "Текстови приложения и електронни таблици."
 
 #: libbricks/features.py:54
 msgid "Visual effects"
-msgstr "Effetti visivi"
+msgstr "Визуални ефекти"
 
 #: libbricks/features.py:55
 msgid "Visual effects such as transparencies, shadows, etc."
-msgstr "Effetti visivi come trasparenze, ombre, ecc."
+msgstr "Визуални ефекти като прозарачности, сенки и др."
 
 #: libbricks/features.py:61
 msgid "Advanced audio support"
-msgstr "Supporto avanzato per l'audio"
+msgstr ""
 
 #: libbricks/features.py:62
 msgid "Advanced audio support (PulseAudio)."
-msgstr "Supporto avanzato per l'audio (PulseAudio)."
+msgstr ""
 
 #: libbricks/features.py:69
 msgid "Web applications support"
-msgstr "Supporto applicazioni web"
+msgstr "Поддръжка веб приложения"
 
 #: libbricks/features.py:70
 msgid "Support for web applications such as YouTube, Twitter and Facebook."
-msgstr "Supporto per le applicazioni web come YouTube, Twitter e Facebook."
+msgstr "Поддръжка за веб приложения като "
 
 #: libbricks/features.py:76
 msgid "Proprietary packages"
-msgstr "Pacchetti proprietari"
+msgstr "Патентовани пакети"
 
 #: libbricks/features.py:77
 msgid ""
 "Proprietary packages such as firmwares, the Adobe(R) Flash Player plugin and"
 " more."
-msgstr "Pacchetti proprietari come firmware, il plugin Adobe(R) Flash Player e altro."
+msgstr "Патентовани пакети като фърмуери, Adobe(R) флаш плейър и още."
 
 #: bricks.py:49
 msgid "Core packages"
-msgstr "Pacchetti principali"
+msgstr "Базови пакети"
 
 #: bricks.py:50
 msgid "Graphical support tools"
-msgstr "Pacchetti di supporto grafico"
+msgstr "Графични инструменти за поддръжка"
 
 #: bricks.py:213
 msgid "Press Close to exit from the application."
-msgstr "Premere Chiudi per uscire dall'applicazione."
+msgstr "Натиснете Затваряне за изход от приложението."
 
 #: bricks.py:532
 msgid "Press the <i>Close</i> button to apply the changes."
-msgstr "Premere il pulsante <i>Chiudi</i> per applicare i cambiamenti."
+msgstr "Натиснете бутона <i>Затваряне</i> за прилагане на промените."
 
 #: bricks.py:591
 #, python-format
 msgid "<b>%s</b> requires \"<i>%s</i>\", which is not currently enabled."
-msgstr "<b>%s</b> richiede \"<i>%s</i>\", che è disabilitato."
+msgstr "<b>%s</b> изисква \"<i>%s</i>\", което в момента не е включено."
 
 #: bricks.py:610
 msgid "USAGE: bricks <ERROR_APP> <ERROR_FEATURE>"
-msgstr "USO: bricks <ERROR_APP> <ERROR_FEATURE>"
+msgstr "ИЗПОЛЗВАНЕ: тухли "
 
 #: bricks.py:611
 msgid "This application doesn't require any argument."
-msgstr "Quest'applicazione non richiede alcun argomento."
+msgstr "Това приложение не изисква никакъв аргумент."
 
 #: bricks.py:612
 msgid "ERROR_APP and ERROR_FEATURE are internally used."
-msgstr "ERROR_APP e ERROR_FEATURE sono usati internamente."
+msgstr "ГРЕШКА_ПРИЛОЖЕНИЕ и ГРЕШКА_ФУНКЦИЯ се изпозват вътрешно."
 
 #: bricks.py:617
 msgid "ERROR: ERROR_APP requires also an ERROR_FEATURE."
-msgstr "ERRORE: ERROR_APP richiede anche ERROR_FEATURE."
+msgstr "ГРЕШКА: ГРЕШКА_ПРОЛОЖЕНИЕ също изисква ГРЕШКА_ФУНКЦИЯ."
 
 #: bricks.glade.h:1
 msgid "<big><b>An error occurred.</b></big>"
-msgstr "<big><b>È stato riscontrato un errore.</b></big>"
+msgstr "<big><b>Получи се грешка.</b></big>"
 
 #: bricks.glade.h:2
 msgid "Manage Semplice features"
-msgstr "Gestisci le funzionalità di Semplice"
+msgstr "Управлявай Semplice функции"
 
 #: bricks.glade.h:3
 msgid "label"
-msgstr "stringa"
+msgstr "табела"
 
 #: bricks.glade.h:4
 msgid "Enable"
-msgstr "Abilita"
+msgstr "Включване"
 
 #: bricks.glade.h:5
 msgid "<b>Features</b>"
-msgstr "<b>Funzionalità</b>"
+msgstr "<b>Функции</b>"
 
 #: bricks.glade.h:6
 msgid "<i>Please wait...</i>"
-msgstr "<i>Attendere prego...</i>"
+msgstr "<i>Моля изчакайте...</i>"
 
 #: bricks.glade.h:7
 msgid "Customize features"
-msgstr "Personalizza le funzionalità"
+msgstr "Настрой функции"
